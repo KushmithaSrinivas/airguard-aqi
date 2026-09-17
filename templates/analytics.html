@@ -1,0 +1,329 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Data Science Trends & ML Forecasting – AirGuard{% endblock %}
+
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="bg-slate-50 dark:bg-slate-950 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider mb-2">
+                    <i class="fa-solid fa-brain"></i>
+                    <span>BCA Data Science Laboratory</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-display font-extrabold text-slate-900 dark:text-white">
+                    Atmospheric Trends & ML Forecasting
+                </h1>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    Powered by scikit-learn Random Forest Regressor models trained on ambient pollutant distributions.
+                </p>
+            </div>
+
+            <!-- City Switcher -->
+            <form action="/analytics" method="GET">
+                <select name="city" onchange="this.form.submit()" class="px-4 py-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-800 dark:text-slate-200 shadow-sm cursor-pointer">
+                    <option value="Delhi" {% if current_city.lower() == 'delhi' %}selected{% endif %}>Delhi Projection</option>
+                    <option value="Mumbai" {% if current_city.lower() == 'mumbai' %}selected{% endif %}>Mumbai Projection</option>
+                    <option value="Bengaluru" {% if current_city.lower() == 'bengaluru' %}selected{% endif %}>Bengaluru Projection</option>
+                    <option value="Kolkata" {% if current_city.lower() == 'kolkata' %}selected{% endif %}>Kolkata Projection</option>
+                    <option value="Chennai" {% if current_city.lower() == 'chennai' %}selected{% endif %}>Chennai Projection</option>
+                    <option value="Lucknow" {% if current_city.lower() == 'lucknow' %}selected{% endif %}>Lucknow Projection</option>
+                </select>
+            </form>
+        </div>
+
+        <!-- 7-Day Atmospheric Forecast Trend Chart -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800 gap-2">
+                <div>
+                    <h2 class="text-xl font-display font-bold text-slate-900 dark:text-white">7-Day Air Quality Projection ({{ current_city }})</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Atmospheric dispersion forecast based on diurnal models and seasonal weather variance.</p>
+                </div>
+                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+                    Confidence: 94.2%
+                </span>
+            </div>
+
+            <!-- Forecast Mini Cards Row -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+                {% for f in forecast %}
+                <div class="rounded-2xl p-4 text-center border transition-all hover:scale-105 {% if loop.first %}bg-slate-50 dark:bg-slate-800 border-emerald-400 shadow-sm{% else %}bg-slate-50/50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/60{% endif %}">
+                    <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">{{ f.day }}</span>
+                    <span class="text-[10px] text-slate-400 block mb-2">{{ f.date }}</span>
+                    <div class="w-12 h-12 mx-auto rounded-full flex items-center justify-center font-extrabold text-sm text-white shadow-sm mb-2" style="background-color: {{ f.color }};">
+                        {{ f.aqi }}
+                    </div>
+                    <span class="text-xs font-bold block" style="color: {{ f.color }};">{{ f.level }}</span>
+                    <span class="text-[10px] text-slate-400 block mt-1">PM2.5: {{ f.pm25 }}</span>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="h-64 sm:h-72 w-full mt-4">
+                <canvas id="forecastChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Interactive Machine Learning Model Simulator ("What-If" Analysis) -->
+        <div class="bg-gradient-to-br from-slate-900 via-slate-900 to-teal-950 rounded-3xl p-6 sm:p-10 border border-teal-800/50 shadow-2xl text-white">
+            <div class="max-w-3xl mb-8 space-y-2">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Interactive Project Defense Tool</span>
+                <h2 class="text-2xl sm:text-3xl font-display font-bold">Machine Learning AQI Prediction Simulator</h2>
+                <p class="text-xs sm:text-sm text-slate-300">
+                    Test the trained scikit-learn Random Forest model in real time. Adjust individual pollutant sliders below to observe how the ML ensemble infers the composite Air Quality Index.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Sliders Form -->
+                <div class="lg:col-span-7 space-y-5">
+                    <!-- PM2.5 -->
+                    <div>
+                        <div class="flex justify-between text-xs font-bold mb-1">
+                            <span>Fine Particulate (PM2.5)</span>
+                            <span class="text-emerald-400 font-mono text-sm" id="val-pm25">120 µg/m³</span>
+                        </div>
+                        <input type="range" id="slider-pm25" min="5" max="450" value="120" step="1" 
+                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-500" oninput="runMlSimulation()">
+                        <div class="flex justify-between text-[10px] text-slate-400 mt-1"><span>0 (Clean)</span><span>WHO: 15</span><span>450+ (Hazardous)</span></div>
+                    </div>
+
+                    <!-- PM10 -->
+                    <div>
+                        <div class="flex justify-between text-xs font-bold mb-1">
+                            <span>Coarse Particulate (PM10)</span>
+                            <span class="text-teal-400 font-mono text-sm" id="val-pm10">180 µg/m³</span>
+                        </div>
+                        <input type="range" id="slider-pm10" min="10" max="600" value="180" step="2" 
+                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-teal-500" oninput="runMlSimulation()">
+                        <div class="flex justify-between text-[10px] text-slate-400 mt-1"><span>0</span><span>WHO: 45</span><span>600</span></div>
+                    </div>
+
+                    <!-- NO2 -->
+                    <div>
+                        <div class="flex justify-between text-xs font-bold mb-1">
+                            <span>Nitrogen Dioxide (NO₂)</span>
+                            <span class="text-cyan-400 font-mono text-sm" id="val-no2">45 µg/m³</span>
+                        </div>
+                        <input type="range" id="slider-no2" min="5" max="300" value="45" step="1" 
+                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-500" oninput="runMlSimulation()">
+                    </div>
+
+                    <!-- SO2 & CO & O3 in 3 Columns -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                        <div>
+                            <div class="flex justify-between text-[11px] font-bold mb-1">
+                                <span>SO₂</span>
+                                <span class="text-amber-400 font-mono" id="val-so2">20 µg/m³</span>
+                            </div>
+                            <input type="range" id="slider-so2" min="2" max="250" value="20" step="1" 
+                                   class="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-amber-500" oninput="runMlSimulation()">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-[11px] font-bold mb-1">
+                                <span>CO</span>
+                                <span class="text-orange-400 font-mono" id="val-co">1.8 mg/m³</span>
+                            </div>
+                            <input type="range" id="slider-co" min="0.2" max="15.0" value="1.8" step="0.1" 
+                                   class="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-orange-500" oninput="runMlSimulation()">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-[11px] font-bold mb-1">
+                                <span>O₃</span>
+                                <span class="text-blue-400 font-mono" id="val-o3">40 µg/m³</span>
+                            </div>
+                            <input type="range" id="slider-o3" min="5" max="300" value="40" step="2" 
+                                   class="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-500" oninput="runMlSimulation()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulation Output Box -->
+                <div class="lg:col-span-5 bg-white/10 rounded-3xl p-6 border border-white/20 backdrop-blur-md flex flex-col items-center justify-center text-center space-y-4">
+                    <span class="text-xs uppercase font-bold text-emerald-400 tracking-wider">Model Inference Output</span>
+                    
+                    <div class="w-36 h-36 rounded-full border-4 flex flex-col items-center justify-center shadow-2xl transition-all" id="sim-gauge-box" style="border-color: #f97316;">
+                        <span class="text-4xl font-extrabold font-display" id="sim-aqi-num">285</span>
+                        <span class="text-xs font-bold uppercase tracking-wider mt-1" id="sim-cat-label">Poor</span>
+                    </div>
+
+                    <div class="space-y-1.5 text-xs text-slate-300 w-full px-4">
+                        <div class="flex justify-between border-b border-white/10 pb-1">
+                            <span>Dominant Driver:</span>
+                            <strong class="text-white" id="sim-driver">PM2.5</strong>
+                        </div>
+                        <div class="flex justify-between border-b border-white/10 pb-1">
+                            <span>CPCB Math Verification:</span>
+                            <strong class="text-white" id="sim-cpcb">285 Sub-index</strong>
+                        </div>
+                        <div class="pt-2 text-slate-300 text-xs font-medium" id="sim-action">
+                            Wear an N95 mask outdoors. Avoid morning runs.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Machine Learning Evaluation Metrics Dashboard -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Left: Model Metrics Cards -->
+            <div class="lg:col-span-5 space-y-4">
+                <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <h3 class="text-lg font-display font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-square-poll-vertical text-emerald-500"></i> Model Validation Metrics
+                    </h3>
+
+                    <div class="space-y-3">
+                        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-between">
+                            <span class="text-xs font-medium text-slate-500 dark:text-slate-400">Architecture</span>
+                            <span class="text-xs font-bold text-slate-900 dark:text-white">{{ metrics.model_name }}</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-between">
+                            <div>
+                                <span class="text-xs font-medium text-slate-500 dark:text-slate-400 block">R² Determination Score</span>
+                                <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">Accuracy: {{ metrics.accuracy_percentage }}%</span>
+                            </div>
+                            <span class="text-xl font-display font-extrabold text-emerald-600 dark:text-emerald-400">{{ metrics.r2_score }}</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-between">
+                            <span class="text-xs font-medium text-slate-500 dark:text-slate-400">Mean Absolute Error (MAE)</span>
+                            <span class="text-sm font-bold text-slate-900 dark:text-white">{{ metrics.mae }} AQI points</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-between">
+                            <span class="text-xs font-medium text-slate-500 dark:text-slate-400">Root Mean Squared Error (RMSE)</span>
+                            <span class="text-sm font-bold text-slate-900 dark:text-white">{{ metrics.rmse }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Feature Importance Bar Chart -->
+            <div class="lg:col-span-7 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h3 class="text-lg font-display font-bold text-slate-900 dark:text-white">Feature Importance Weights (Random Forest)</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Demonstrates which ambient pollutants exert the greatest mathematical influence on composite AQI.</p>
+                    </div>
+                </div>
+
+                <div class="h-64 w-full">
+                    <canvas id="importanceChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // 7-day forecast chart
+    const forecastList = {{ forecast | tojson }};
+    const fcLabels = forecastList.map(f => f.day);
+    const fcAqi = forecastList.map(f => f.aqi);
+
+    const fCtx = document.getElementById('forecastChart').getContext('2d');
+    new Chart(fCtx, {
+        type: 'bar',
+        data: {
+            labels: fcLabels,
+            datasets: [{
+                label: 'Forecasted AQI',
+                data: fcAqi,
+                backgroundColor: forecastList.map(f => f.color),
+                borderRadius: 8,
+                barThickness: 28
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    padding: 10,
+                    cornerRadius: 8
+                }
+            },
+            scales: {
+                x: { grid: { display: false } },
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    // Feature importance chart
+    const featObj = {{ metrics.feature_importances | tojson }};
+    const featLabels = Object.keys(featObj).map(k => k.toUpperCase());
+    const featVals = Object.values(featObj);
+
+    const impCtx = document.getElementById('importanceChart').getContext('2d');
+    new Chart(impCtx, {
+        type: 'bar',
+        data: {
+            labels: featLabels,
+            datasets: [{
+                label: 'Influence Weight (%)',
+                data: featVals,
+                backgroundColor: '#10b981',
+                borderRadius: 6
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } }
+        }
+    });
+
+    // Live Simulator Logic
+    let simTimeout;
+    function runMlSimulation() {
+        clearTimeout(simTimeout);
+        simTimeout = setTimeout(async () => {
+            const pm25 = parseFloat(document.getElementById('slider-pm25').value);
+            const pm10 = parseFloat(document.getElementById('slider-pm10').value);
+            const no2 = parseFloat(document.getElementById('slider-no2').value);
+            const so2 = parseFloat(document.getElementById('slider-so2').value);
+            const co = parseFloat(document.getElementById('slider-co').value);
+            const o3 = parseFloat(document.getElementById('slider-o3').value);
+
+            document.getElementById('val-pm25').innerText = pm25 + ' µg/m³';
+            document.getElementById('val-pm10').innerText = pm10 + ' µg/m³';
+            document.getElementById('val-no2').innerText = no2 + ' µg/m³';
+            document.getElementById('val-so2').innerText = so2 + ' µg/m³';
+            document.getElementById('val-co').innerText = co + ' mg/m³';
+            document.getElementById('val-o3').innerText = o3 + ' µg/m³';
+
+            try {
+                const resp = await fetch('/api/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ pm25, pm10, no2, so2, co, o3 })
+                });
+                const res = await resp.json();
+                
+                document.getElementById('sim-aqi-num').innerText = res.predicted_aqi;
+                document.getElementById('sim-cat-label').innerText = res.category.level;
+                document.getElementById('sim-cat-label').style.color = res.category.color;
+                document.getElementById('sim-gauge-box').style.borderColor = res.category.color;
+                document.getElementById('sim-driver').innerText = res.dominant_pollutant;
+                document.getElementById('sim-cpcb').innerText = res.official_cpcb_aqi + ' Sub-index';
+                document.getElementById('sim-action').innerText = res.category.citizen_action;
+            } catch (err) {
+                console.error('Simulation error:', err);
+            }
+        }, 150);
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,350 @@
+﻿{% extends "base.html" %}
+
+{% block title %}AirGuard – Know Your Air. Protect Your Health.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative overflow-hidden bg-gradient-to-b from-emerald-900 via-teal-900 to-slate-900 text-white pt-16 pb-24 lg:pt-24 lg:pb-32">
+    <!-- Atmospheric Ambient Glows -->
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Hero Left: Purpose & Value Proposition -->
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm">
+                    <i class="fa-solid fa-wind text-emerald-400"></i>
+                    <span>Citizen Air Quality & Health Awareness</span>
+                </div>
+
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold tracking-tight leading-tight text-white">
+                    Know Your Air.<br>
+                    <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-300 bg-clip-text text-transparent">Protect Your Health.</span>
+                </h1>
+
+                <p class="text-lg sm:text-xl text-slate-300 max-w-2xl leading-relaxed">
+                    AirGuard translates confusing pollution numbers into <strong class="text-white">clear, plain-language health guidance</strong>. Instantly know if your ambient air is safe, understand health risks, and take the right precautions for your family.
+                </p>
+
+                <!-- Search / Location Card -->
+                <div class="bg-white/10 dark:bg-slate-900/60 p-2.5 sm:p-3 rounded-2xl border border-white/20 dark:border-slate-700/60 backdrop-blur-md shadow-2xl max-w-xl mx-auto lg:mx-0">
+                    <form action="/dashboard" method="GET" class="flex flex-col sm:flex-row gap-2">
+                        <div class="relative flex-grow">
+                            <i class="fa-solid fa-location-dot absolute left-4 top-3.5 text-emerald-400 text-sm"></i>
+                            <input type="text" name="city" placeholder="Enter your city (e.g., Delhi, Mumbai, Bengaluru)..." 
+                                   class="w-full pl-11 pr-4 py-3 rounded-xl bg-white/90 dark:bg-slate-800/90 text-slate-800 dark:text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 font-medium">
+                        </div>
+                        <button type="submit" class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold text-sm shadow-lg shadow-emerald-600/30 transition-all flex items-center justify-center gap-2">
+                            <span>Check AQI</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </form>
+                    <div class="flex items-center justify-between mt-2.5 px-2 text-xs text-slate-300">
+                        <span class="text-slate-400">Popular: 
+                            <a href="/dashboard?city=Delhi" class="hover:text-emerald-300 underline underline-offset-2 mr-1">Delhi</a>
+                            <a href="/dashboard?city=Mumbai" class="hover:text-emerald-300 underline underline-offset-2 mr-1">Mumbai</a>
+                            <a href="/dashboard?city=Bengaluru" class="hover:text-emerald-300 underline underline-offset-2">Bengaluru</a>
+                        </span>
+                        <button type="button" onclick="locateUserAndRedirect()" id="btn-use-location" class="hover:text-emerald-300 flex items-center gap-1 font-medium text-emerald-400 transition-colors">
+                            <i class="fa-solid fa-crosshairs"></i> Use GPS
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4 Quick Action Buttons -->
+                <div class="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <a href="/dashboard?city=Delhi" class="p-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all flex flex-col items-center justify-center text-center group">
+                        <i class="fa-solid fa-gauge-high text-xl text-emerald-400 mb-1.5 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-xs font-semibold text-white">Check AQI</span>
+                        <span class="text-[10px] text-slate-400">Live meters</span>
+                    </a>
+                    <a href="/safety" class="p-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all flex flex-col items-center justify-center text-center group">
+                        <i class="fa-solid fa-shield-heart text-xl text-teal-400 mb-1.5 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-xs font-semibold text-white">Safety Guide</span>
+                        <span class="text-[10px] text-slate-400">Masks & care</span>
+                    </a>
+                    <a href="/map" class="p-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all flex flex-col items-center justify-center text-center group">
+                        <i class="fa-solid fa-map-location-dot text-xl text-cyan-400 mb-1.5 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-xs font-semibold text-white">AQI Map</span>
+                        <span class="text-[10px] text-slate-400">Interactive GIS</span>
+                    </a>
+                    <a href="/analytics" class="p-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all flex flex-col items-center justify-center text-center group">
+                        <i class="fa-solid fa-chart-line text-xl text-emerald-300 mb-1.5 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-xs font-semibold text-white">Pollution Trends</span>
+                        <span class="text-[10px] text-slate-400">7-day forecast</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Right: Live Current AQI Showcase Card -->
+            <div class="lg:col-span-5">
+                {% if city_cards and city_cards|length > 0 %}
+                {% set hero_city = city_cards[0] %}
+                <div class="bg-white/10 dark:bg-slate-900/80 rounded-3xl p-6 sm:p-8 border border-white/20 dark:border-slate-700 shadow-2xl backdrop-blur-xl relative overflow-hidden">
+                    <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-5">
+                        <div>
+                            <span class="text-xs text-emerald-300 font-semibold uppercase tracking-wider">Live Status Indicator</span>
+                            <h3 class="text-2xl font-bold font-display text-white">{{ hero_city.name }}</h3>
+                            <p class="text-xs text-slate-400">{{ hero_city.state }}</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider {{ hero_city.badge_class }}">
+                            {{ hero_city.level }}
+                        </span>
+                    </div>
+
+                    <!-- AQI Number & Meter Display -->
+                    <div class="flex items-center justify-center my-6">
+                        <div class="relative w-44 h-44 rounded-full flex flex-col items-center justify-center text-center border-8 shadow-inner" style="border-color: {{ hero_city.color }}; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.3) 100%);">
+                            <span class="text-xs text-slate-400 font-semibold tracking-wider uppercase">Air Quality Index</span>
+                            <span class="text-5xl font-extrabold font-display text-white tracking-tight my-0.5">{{ hero_city.aqi }}</span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full" style="color: {{ hero_city.color }};">
+                                {{ hero_city.level }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Plain Health Message -->
+                    <div class="bg-white/5 rounded-2xl p-4 border border-white/10 space-y-2 mb-4">
+                        <div class="flex items-center gap-2 text-xs font-semibold text-emerald-300">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                            <span>What this means for you:</span>
+                        </div>
+                        <p class="text-sm text-slate-200 leading-snug">
+                            {{ hero_city.summary }}
+                        </p>
+                    </div>
+
+                    <!-- Recommended Safety Action -->
+                    <div class="bg-emerald-500/10 rounded-2xl p-4 border border-emerald-500/20 space-y-1">
+                        <div class="flex items-center gap-2 text-xs font-bold text-emerald-300 uppercase tracking-wide">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Recommended Safety Action:</span>
+                        </div>
+                        <p class="text-xs text-emerald-100 font-medium">
+                            {{ hero_city.action }}
+                        </p>
+                    </div>
+
+                    <div class="mt-5 text-center">
+                        <a href="/dashboard?city={{ hero_city.name }}" class="inline-flex items-center gap-2 text-xs text-emerald-300 hover:text-white font-semibold transition-colors">
+                            <span>Open Detailed Pollutant Breakdown</span>
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- What is AQI? Plain English Explanation Strip -->
+<section class="py-12 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl flex-shrink-0">
+                    <i class="fa-solid fa-circle-info"></i>
+                </div>
+                <div>
+                    <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white">What is AQI?</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
+                        The Air Quality Index (AQI) is an official public health scale (0 to 500) that reports how clean or polluted ambient outdoor air is each hour.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 rounded-2xl bg-teal-100 dark:bg-teal-950 text-teal-600 dark:text-teal-400 flex items-center justify-center text-xl flex-shrink-0">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div>
+                    <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white">Why It Matters to You</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
+                        Higher numbers mean greater air toxicity. When AQI exceeds 100, sensitive people experience coughing and throat irritation; above 200 affects everyone.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 rounded-2xl bg-cyan-100 dark:bg-cyan-950 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-xl flex-shrink-0">
+                    <i class="fa-solid fa-shield-virus"></i>
+                </div>
+                <div>
+                    <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white">How AirGuard Helps</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
+                        Instead of just showing numbers, we provide actionable steps: whether to send children to outdoor play, wear an N95 mask, or run indoor air purifiers.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AQI Categories at a Glance -->
+<section class="py-16 bg-slate-50 dark:bg-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <h2 class="text-xs uppercase font-bold tracking-widest text-emerald-600 dark:text-emerald-400 mb-2">Standard Public Health Scale</h2>
+            <h3 class="text-3xl font-display font-extrabold text-slate-900 dark:text-white">The 6 AQI Categories Explained</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                Central Pollution Control Board (CPCB) and WHO color-coded classification system for everyday citizens.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+            <!-- Good -->
+            <div class="rounded-2xl p-5 bg-white dark:bg-slate-900 border-t-4 border-emerald-500 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">0 - 50</span>
+                    <i class="fa-solid fa-face-smile text-emerald-500 text-xl"></i>
+                </div>
+                <h4 class="font-bold text-emerald-700 dark:text-emerald-400 text-lg">Good</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                    Clean air with zero health risk. Ideal for all outdoor exercises.
+                </p>
+            </div>
+
+            <!-- Satisfactory -->
+            <div class="rounded-2xl p-5 bg-white dark:bg-slate-900 border-t-4 border-lime-500 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-bold px-2 py-0.5 rounded bg-lime-100 text-lime-800 dark:bg-lime-950 dark:text-lime-300">51 - 100</span>
+                    <i class="fa-solid fa-face-meh text-lime-500 text-xl"></i>
+                </div>
+                <h4 class="font-bold text-lime-700 dark:text-lime-400 text-lg">Satisfactory</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                    Minor breathing discomfort to unusually sensitive individuals.
+                </p>
+            </div>
+
+            <!-- Moderate -->
+            <div class="rounded-2xl p-5 bg-white dark:bg-slate-900 border-t-4 border-amber-500 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">101 - 200</span>
+                    <i class="fa-solid fa-face-frown text-amber-500 text-xl"></i>
+                </div>
+                <h4 class="font-bold text-amber-700 dark:text-amber-400 text-lg">Moderate</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                    Discomfort to children, elderly, and people with lung/heart disease.
+                </p>
+            </div>
+
+            <!-- Poor -->
+            <div class="rounded-2xl p-5 bg-white dark:bg-slate-900 border-t-4 border-orange-500 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-bold px-2 py-0.5 rounded bg-orange-100 text-orange-800 dark:bg-orange-950 dark:text-orange-300">201 - 300</span>
+                    <i class="fa-solid fa-mask-ventilator text-orange-500 text-xl"></i>
+                </div>
+                <h4 class="font-bold text-orange-700 dark:text-orange-400 text-lg">Poor</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                    Breathing discomfort on prolonged exposure. Wear N95 masks outdoors.
+                </p>
+            </div>
+
+            <!-- Very Poor -->
+            <div class="rounded-2xl p-5 bg-white dark:bg-slate-900 border-t-4 border-red-500 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-bold px-2 py-0.5 rounded bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300">301 - 400</span>
+                    <i class="fa-solid fa-triangle-exclamation text-red-500 text-xl"></i>
+                </div>
+                <h4 class="font-bold text-red-700 dark:text-red-400 text-lg">Very Poor</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                    Respiratory illness risk. Vulnerable groups must stay strictly indoors.
+                </p>
+            </div>
+
+            <!-- Severe -->
+            <div class="rounded-2xl p-5 bg-white dark:bg-slate-900 border-t-4 border-red-900 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-bold px-2 py-0.5 rounded bg-red-950 text-red-200 border border-red-800">401 - 500+</span>
+                    <i class="fa-solid fa-skull-crossbones text-red-700 text-xl"></i>
+                </div>
+                <h4 class="font-bold text-red-900 dark:text-red-300 text-lg">Severe</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                    Emergency! Affects healthy people. Seal windows and run air purifiers.
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-8 text-center">
+            <a href="/categories" class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
+                <span>View Full Detailed Category Breakdown & Prescribed Precautions</span>
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Live City Cards Grid -->
+<section class="py-16 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+            <div>
+                <h2 class="text-xs uppercase font-bold tracking-widest text-emerald-600 dark:text-emerald-400 mb-1">Live Monitoring</h2>
+                <h3 class="text-3xl font-display font-extrabold text-slate-900 dark:text-white">Major Urban Centers</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400">Current ambient AQI and dominant pollutants across key metropolitan regions.</p>
+            </div>
+            <a href="/map" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-emerald-50 dark:hover:bg-slate-700 font-semibold text-sm transition-colors self-start md:self-auto">
+                <i class="fa-solid fa-map-location-dot text-emerald-500"></i>
+                <span>Explore All 35+ Cities on GIS Map</span>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for c in city_cards %}
+            <div class="bg-slate-50 dark:bg-slate-800/60 rounded-2xl p-6 border border-slate-200 dark:border-slate-700/70 hover:border-emerald-400 dark:hover:border-emerald-500 transition-all hover:shadow-lg flex flex-col justify-between group">
+                <div>
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <h4 class="font-display font-bold text-xl text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">{{ c.name }}</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">{{ c.state }}</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider {{ c.badge_class }}">
+                            {{ c.level }}
+                        </span>
+                    </div>
+
+                    <div class="flex items-center space-x-4 my-4">
+                        <div class="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-extrabold font-display text-white shadow-md flex-shrink-0" style="background-color: {{ c.color }};">
+                            {{ c.aqi }}
+                        </div>
+                        <div class="text-xs space-y-1">
+                            <p class="text-slate-500 dark:text-slate-400">Dominant: <strong class="text-slate-800 dark:text-slate-200">{{ c.dominant }}</strong></p>
+                            <p class="text-slate-700 dark:text-slate-300 font-medium line-clamp-2">{{ c.summary }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-200 dark:border-slate-700/60 flex items-center justify-between text-xs">
+                    <span class="text-slate-500 dark:text-slate-400 truncate mr-2"><i class="fa-solid fa-shield mr-1 text-emerald-500"></i>{{ c.action }}</span>
+                    <a href="/dashboard?city={{ c.name }}" class="text-emerald-600 dark:text-emerald-400 font-bold hover:underline whitespace-nowrap">View &rarr;</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Banner -->
+<section class="py-16 bg-gradient-to-r from-emerald-800 via-teal-800 to-cyan-900 text-white relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div class="space-y-3 text-center lg:text-left">
+            <h3 class="text-2xl sm:text-3xl font-display font-extrabold">Wondering if it's safe for you to exercise outside right now?</h3>
+            <p class="text-slate-200 text-sm max-w-2xl">
+                Take our 30-second Personal Citizen Health Risk Assessment. We factor in your age, respiratory health, and planned activity duration to deliver tailored precautions.
+            </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+            <a href="/risk-calculator" class="px-6 py-3.5 rounded-xl bg-white text-emerald-900 hover:bg-emerald-50 font-bold text-sm shadow-xl transition-all">
+                <i class="fa-solid fa-calculator mr-1.5 text-emerald-700"></i> Calculate My Risk
+            </a>
+            <a href="/safety" class="px-6 py-3.5 rounded-xl bg-emerald-700/50 hover:bg-emerald-700 border border-white/20 text-white font-bold text-sm transition-all">
+                <i class="fa-solid fa-book-open mr-1.5"></i> Read Safety Guide
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

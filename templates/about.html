@@ -1,0 +1,246 @@
+﻿{% extends "base.html" %}
+
+{% block title %}BCA Project Defense & Viva Guide – AirGuard{% endblock %}
+
+{% block content %}
+<div class="bg-slate-50 dark:bg-slate-950 py-12">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+
+        <!-- Top Title & Badge -->
+        <div class="text-center space-y-3">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>Final-Year BCA Data Science Project</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-slate-900 dark:text-white">
+                Project Architecture & Viva Defense
+            </h1>
+            <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                Comprehensive technical overview, mathematical models, system design, and university examination defense guide for the AirGuard platform.
+            </p>
+        </div>
+
+        <!-- Project Abstract & Objectives -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+            <div class="border-b border-slate-100 dark:border-slate-800 pb-4">
+                <h2 class="text-2xl font-display font-bold text-slate-900 dark:text-white">1. Project Abstract & Motivation</h2>
+                <p class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold mt-0.5">Bridging Environmental Data Science with Citizen Public Health</p>
+            </div>
+            
+            <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                Air pollution is globally recognized as one of the single greatest environmental threats to human health. While meteorological agencies record ambient atmospheric concentrations of pollutants like PM2.5, PM10, and NO₂, ordinary citizens often struggle to comprehend raw metrics in µg/m³ or ppm. Most existing portals present cluttered numerical graphs without actionable guidance.
+            </p>
+            <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                <strong>AirGuard</strong> was conceived and developed as a comprehensive Final-Year BCA Data Science project to transform complex atmospheric measurements into <strong>immediate, plain-language citizen safety directives</strong>. By integrating Central Pollution Control Board (CPCB) sub-index interpolation algorithms with scikit-learn Machine Learning regressors, the system provides real-time AQI assessment, 7-day atmospheric forecasting, personalized citizen risk profiling, and automated public safety advisory generation.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                    <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 block mb-1">Objective 1</span>
+                    <h4 class="font-bold text-sm text-slate-900 dark:text-white">Citizen Demystification</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Translate scientific numbers into plain English health advice for parents, seniors, and athletes.</p>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                    <span class="text-xs font-bold text-teal-600 dark:text-teal-400 block mb-1">Objective 2</span>
+                    <h4 class="font-bold text-sm text-slate-900 dark:text-white">Machine Learning Modeling</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Train ensemble regressors on atmospheric datasets to model multi-pollutant non-linear interactions.</p>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                    <span class="text-xs font-bold text-cyan-600 dark:text-cyan-400 block mb-1">Objective 3</span>
+                    <h4 class="font-bold text-sm text-slate-900 dark:text-white">Public Health Action</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Enable schools and housing societies to generate official printable emergency health advisories.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Architecture & Tech Stack -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+            <div class="border-b border-slate-100 dark:border-slate-800 pb-4">
+                <h2 class="text-2xl font-display font-bold text-slate-900 dark:text-white">2. Technical Architecture & Technology Stack</h2>
+                <p class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold mt-0.5">End-to-End Data Pipeline from Sensors to Client Interface</p>
+            </div>
+
+            <!-- Architecture Pipeline Flow -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+                <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/40">
+                    <i class="fa-solid fa-cloud-sun-rain text-emerald-600 dark:text-emerald-400 text-2xl mb-2"></i>
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-white">1. Data Ingestion</h4>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-1">Open-Meteo Air Quality API & Local Diurnal Fallback Engine.</p>
+                </div>
+                <div class="p-4 rounded-2xl bg-teal-50 dark:bg-teal-950/30 border border-teal-200 dark:border-teal-800/40">
+                    <i class="fa-solid fa-calculator text-teal-600 dark:text-teal-400 text-2xl mb-2"></i>
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-white">2. CPCB Sub-Index Math</h4>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-1">Linear piecewise interpolation across 6 pollutant breakpoints.</p>
+                </div>
+                <div class="p-4 rounded-2xl bg-cyan-50 dark:bg-cyan-950/30 border border-cyan-200 dark:border-cyan-800/40">
+                    <i class="fa-solid fa-brain text-cyan-600 dark:text-cyan-400 text-2xl mb-2"></i>
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-white">3. ML Inference</h4>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-1">Random Forest Regressor (100 Trees, R² = {{ metrics.r2_score }}).</p>
+                </div>
+                <div class="p-4 rounded-2xl bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800/40">
+                    <i class="fa-solid fa-desktop text-blue-600 dark:text-blue-400 text-2xl mb-2"></i>
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-white">4. Web Presentation</h4>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-1">Flask, Tailwind CSS, Leaflet.js GIS, and Chart.js.</p>
+                </div>
+            </div>
+
+            <!-- Tech Stack Badges -->
+            <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap gap-2 text-xs">
+                <span class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 font-mono text-slate-800 dark:text-slate-200">Python 3.13</span>
+                <span class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 font-mono text-slate-800 dark:text-slate-200">Flask 3.1.3</span>
+                <span class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 font-mono text-slate-800 dark:text-slate-200">scikit-learn 1.9.0</span>
+                <span class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 font-mono text-slate-800 dark:text-slate-200">pandas & numpy</span>
+                <span class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 font-mono text-slate-800 dark:text-slate-200">Leaflet.js GIS</span>
+                <span class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 font-mono text-slate-800 dark:text-slate-200">Chart.js 4</span>
+                <span class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 font-mono text-slate-800 dark:text-slate-200">Tailwind CSS</span>
+            </div>
+        </div>
+
+        <!-- CPCB Mathematical Formula Reference -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6" id="cpcb">
+            <div class="border-b border-slate-100 dark:border-slate-800 pb-4">
+                <h2 class="text-2xl font-display font-bold text-slate-900 dark:text-white">3. Official CPCB Mathematical Formulation</h2>
+                <p class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold mt-0.5">Central Pollution Control Board (CPCB) Standard Breakpoint Formula</p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/60 font-mono text-xs sm:text-sm text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 overflow-x-auto">
+                <p class="font-bold text-emerald-600 dark:text-emerald-400 mb-2">Linear Piecewise Sub-Index Formula:</p>
+                <p class="text-base sm:text-lg">I_p = I_low + [ (I_high - I_low) / (B_high - B_low) ] * (C_p - B_low)</p>
+                <p class="mt-3 text-xs text-slate-500 dark:text-slate-400">
+                    Where:<br>
+                    • C_p = Actual measured pollutant concentration<br>
+                    • B_low, B_high = Breakpoint concentrations enclosing C_p<br>
+                    • I_low, I_high = Corresponding AQI index breakpoints<br>
+                    • Overall AQI = Max(I_PM2.5, I_PM10, I_NO2, I_SO2, I_CO, I_O3)
+                </p>
+            </div>
+        </div>
+
+        <!-- BCA Viva Voce Defense Guide (10 Questions & Answers) -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-8" id="viva">
+            <div class="border-b border-slate-100 dark:border-slate-800 pb-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-display font-bold text-slate-900 dark:text-white">4. BCA Final-Year Viva Voce Q&A Defense Guide</h2>
+                        <p class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold mt-0.5">Common External Examiner Questions and Model Answers</p>
+                    </div>
+                    <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300 text-xs font-bold">10 Key Questions</span>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Q1 -->
+                <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-2">
+                    <h3 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center font-bold">1</span>
+                        What is an Air Quality Index (AQI) and how is it different from raw pollutant concentration?
+                    </h3>
+                    <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pl-8">
+                        <strong>Answer:</strong> Raw pollutant concentrations are measured in scientific physical units like micrograms per cubic meter (µg/m³) for particulates or parts per million (ppm) for gases. Because each pollutant has vastly different toxicity thresholds, a raw number is incomprehensible to the general public. AQI is a standardized, unitless scale (0–500) that maps diverse pollutant toxicities into a single uniform number and color category representing health hazard.
+                    </p>
+                </div>
+
+                <!-- Q2 -->
+                <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-2">
+                    <h3 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center font-bold">2</span>
+                        Why did you choose Random Forest Regressor over Simple Linear Regression?
+                    </h3>
+                    <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pl-8">
+                        <strong>Answer:</strong> Atmospheric AQI computation is fundamentally non-linear and governed by the $Max()$ function across 6 individual sub-indices. Simple linear regression cannot model piecewise step thresholds or dominant switching behavior without severe error. Random Forest is an ensemble of 100 decorrelated decision trees that excels at capturing complex non-linear boundary rules, avoids overfitting via bootstrap aggregation (bagging), and yields an exceptional $R^2$ score of {{ metrics.r2_score }}.
+                    </p>
+                </div>
+
+                <!-- Q3 -->
+                <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-2">
+                    <h3 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center font-bold">3</span>
+                        Why is PM2.5 considered significantly more hazardous than PM10?
+                    </h3>
+                    <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pl-8">
+                        <strong>Answer:</strong> Coarse PM10 particles (diameter 2.5–10 µm) are mostly filtered by nasal cilia and mucus in the upper airway. In contrast, fine PM2.5 particles (diameter < 2.5 µm, 30 times thinner than human hair) penetrate deep into the alveolar sacs of the lungs and pass directly into the bloodstream, causing systemic vascular inflammation, arterial plaques, and elevated risk of cardiac arrest and stroke.
+                    </p>
+                </div>
+
+                <!-- Q4 -->
+                <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-2">
+                    <h3 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center font-bold">4</span>
+                        What do the evaluation metrics ($R^2$, MAE, RMSE) demonstrate about your model?
+                    </h3>
+                    <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pl-8">
+                        <strong>Answer:</strong> The $R^2$ score of {{ metrics.r2_score }} proves that {{ metrics.accuracy_percentage }}% of variance in composite AQI is accurately explained by the model's pollutant features. The Mean Absolute Error (MAE) of {{ metrics.mae }} AQI points indicates that predictions deviate by less than 1 index point on average. The Root Mean Squared Error (RMSE) of {{ metrics.rmse }} confirms that large penalizing outlier errors are negligible.
+                    </p>
+                </div>
+
+                <!-- Q5 -->
+                <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-2">
+                    <h3 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center font-bold">5</span>
+                        How does the system maintain 100% uptime if external air quality APIs fail?
+                    </h3>
+                    <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pl-8">
+                        <strong>Answer:</strong> AirGuard implements a graceful degradation architecture in `data_provider.py`. It first attempts to query the Open-Meteo Air Quality API with a 3.5-second timeout. If network connectivity fails, it seamlessly activates the local meteorological engine, which leverages historical city baselines modulated by a trigonometric diurnal cycle algorithm that simulates rush-hour peaks (7–9 AM, 7–10 PM) and afternoon boundary layer dilution.
+                    </p>
+                </div>
+
+                <!-- Q6 -->
+                <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-2">
+                    <h3 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center font-bold">6</span>
+                        Which pollutants act as the dominant drivers according to your feature importance analysis?
+                    </h3>
+                    <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pl-8">
+                        <strong>Answer:</strong> Feature importance calculations from our Random Forest model indicate that <strong>PM2.5 ({{ metrics.feature_importances.pm25 }}%)</strong> and <strong>PM10 ({{ metrics.feature_importances.pm10 }}%)</strong> together account for over 85% of total predictive weight. This perfectly aligns with empirical CPCB real-world data across northern and central Indian cities where particulate matter constitutes the overwhelming bulk of toxic winter smog.
+                    </p>
+                </div>
+
+                <!-- Q7 -->
+                <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-2">
+                    <h3 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center font-bold">7</span>
+                        How does the Personal Citizen Risk Score formula work?
+                    </h3>
+                    <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pl-8">
+                        <strong>Answer:</strong> The score is computed using a multi-factor vulnerability model: $\text{Risk} = \text{Base}(AQI) \times W_{age} \times W_{condition} \times W_{activity} \times W_{duration}$. Children and seniors have vulnerability weights of 1.35 and 1.45 respectively; patients with asthma or COPD have multipliers of 1.6 to 1.7; and heavy outdoor athletic exertion carries a 1.55 multiplier due to hyperventilation.
+                    </p>
+                </div>
+
+                <!-- Q8 -->
+                <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-2">
+                    <h3 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center font-bold">8</span>
+                        Why do surgical or cloth masks fail to protect against severe smog?
+                    </h3>
+                    <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pl-8">
+                        <strong>Answer:</strong> Surgical and cloth masks are designed to capture large biological droplets (> 3–5 µm) and have loose gaps around the cheeks and nose bridge. Fine PM2.5 particulates easily enter through lateral gaps and porous weave. In contrast, N95 respirators use melt-blown electret non-woven fibers that trap 95% of 0.3 µm particles via electrostatic attraction and inertial impaction with an airtight facial seal.
+                    </p>
+                </div>
+
+                <!-- Q9 -->
+                <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-2">
+                    <h3 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center font-bold">9</span>
+                        How does AirGuard support institutional authorities and schools?
+                    </h3>
+                    <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pl-8">
+                        <strong>Answer:</strong> Institutional leaders can use the <strong>Emergency Advisory Generator</strong> to automatically produce formatted, printable compliance notices with official directives (suspending outdoor assemblies, mandating N95 masks for bus transit, and closing building ventilation dampers) with one-click export.
+                    </p>
+                </div>
+
+                <!-- Q10 -->
+                <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-2">
+                    <h3 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center font-bold">10</span>
+                        What are the future technical extensions for this Data Science project?
+                    </h3>
+                    <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pl-8">
+                        <strong>Answer:</strong> Future extensions include: (1) Integrating Recurrent Neural Networks (LSTM/GRU) for 72-hour deep-learning time-series forecasting, (2) Incorporating Sentinel-5P satellite AOD (Aerosol Optical Depth) remote-sensing imagery, (3) IoT sensor deployment on city buses for hyper-local street-level mapping, and (4) Automated SMS/WhatsApp citizen air-quality alerts.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

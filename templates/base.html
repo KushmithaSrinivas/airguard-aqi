@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AirGuard – AQI Awareness & Citizen Safety System{% endblock %}</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            900: '#064e3b'
+                        },
+                        skybrand: {
+                            500: '#0284c7',
+                            600: '#0369a1'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors duration-200">
+    
+    <!-- Top Announcement & Air Ticker -->
+    <div class="bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-800 text-white text-xs sm:text-sm py-2 px-4 shadow-sm">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center space-x-2">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/30 border border-emerald-300/40 text-emerald-100">
+                    <span class="w-2 h-2 rounded-full bg-emerald-300 animate-ping mr-1.5"></span> LIVE CPCB FEED
+                </span>
+                <span class="hidden sm:inline text-emerald-100 font-medium">BCA Data Science Final-Year Project: Real-time Air Quality Assessment & Citizen Protection</span>
+            </div>
+            <div class="flex items-center space-x-4 text-xs">
+                <a href="/advisories" class="hover:underline flex items-center gap-1 text-emerald-200 hover:text-white">
+                    <i class="fa-solid fa-bell"></i> Public Alerts
+                </a>
+                <span class="text-emerald-400">|</span>
+                <a href="/risk-calculator" class="hover:underline flex items-center gap-1 text-emerald-200 hover:text-white">
+                    <i class="fa-solid fa-heart-pulse"></i> Personal Risk Test
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo & Subtitle -->
+                <a href="/" class="flex items-center space-x-3 group">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white text-2xl shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform duration-200">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="font-display font-extrabold text-2xl tracking-tight bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">AirGuard</span>
+                            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">Citizen System</span>
+                        </div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 font-medium tracking-wide">“Know Your Air. Protect Your Health.”</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden xl:flex items-center space-x-1 font-medium text-sm">
+                    <a href="/" class="px-3 py-2 rounded-lg transition-colors {% if request.path == '/' %}text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-slate-800 font-semibold{% else %}text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800{% endif %}">
+                        <i class="fa-solid fa-house mr-1 text-xs"></i> Home
+                    </a>
+                    <a href="/dashboard" class="px-3 py-2 rounded-lg transition-colors {% if request.path == '/dashboard' %}text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-slate-800 font-semibold{% else %}text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800{% endif %}">
+                        <i class="fa-solid fa-gauge-high mr-1 text-xs"></i> Dashboard
+                    </a>
+                    <a href="/categories" class="px-3 py-2 rounded-lg transition-colors {% if request.path == '/categories' %}text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-slate-800 font-semibold{% else %}text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800{% endif %}">
+                        <i class="fa-solid fa-layer-group mr-1 text-xs"></i> AQI Categories
+                    </a>
+                    <a href="/safety" class="px-3 py-2 rounded-lg transition-colors {% if request.path == '/safety' %}text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-slate-800 font-semibold{% else %}text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800{% endif %}">
+                        <i class="fa-solid fa-shield-heart mr-1 text-xs"></i> Safety Guide
+                    </a>
+                    <a href="/map" class="px-3 py-2 rounded-lg transition-colors {% if request.path == '/map' %}text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-slate-800 font-semibold{% else %}text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800{% endif %}">
+                        <i class="fa-solid fa-map-location-dot mr-1 text-xs"></i> AQI Map
+                    </a>
+                    <a href="/analytics" class="px-3 py-2 rounded-lg transition-colors {% if request.path == '/analytics' %}text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-slate-800 font-semibold{% else %}text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800{% endif %}">
+                        <i class="fa-solid fa-chart-line mr-1 text-xs"></i> ML Analytics
+                    </a>
+                    <a href="/risk-calculator" class="px-3 py-2 rounded-lg transition-colors {% if request.path == '/risk-calculator' %}text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-slate-800 font-semibold{% else %}text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800{% endif %}">
+                        <i class="fa-solid fa-calculator mr-1 text-xs"></i> Risk Calculator
+                    </a>
+                    <a href="/about" class="px-3 py-2 rounded-lg transition-colors {% if request.path == '/about' %}text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-slate-800 font-semibold{% else %}text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800{% endif %}">
+                        <i class="fa-solid fa-graduation-cap mr-1 text-xs"></i> Viva / Defense
+                    </a>
+                </nav>
+
+                <!-- Search & Actions -->
+                <div class="flex items-center space-x-3">
+                    <form action="/dashboard" method="GET" class="relative hidden sm:block">
+                        <input type="text" name="city" placeholder="Search city (e.g. Delhi, Mumbai)..." 
+                               class="w-48 md:w-64 pl-9 pr-4 py-2 text-xs rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-400 transition-all">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
+                    </form>
+
+                    <!-- Dark Mode Toggle -->
+                    <button id="theme-toggle" class="p-2.5 rounded-full text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" title="Toggle Dark/Light Mode">
+                        <i class="fa-solid fa-moon dark:hidden text-sm"></i>
+                        <i class="fa-solid fa-sun hidden dark:inline text-sm"></i>
+                    </button>
+
+                    <!-- Mobile Hamburger Toggle -->
+                    <button id="mobile-menu-btn" class="xl:hidden p-2.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden xl:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-4 space-y-2 shadow-xl">
+            <form action="/dashboard" method="GET" class="relative mb-3">
+                <input type="text" name="city" placeholder="Search city..." 
+                       class="w-full pl-9 pr-4 py-2.5 text-sm rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-emerald-500">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-slate-400 text-sm"></i>
+            </form>
+            <a href="/" class="block px-3 py-2 rounded-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-emerald-50 dark:hover:bg-slate-800"><i class="fa-solid fa-house w-6 text-emerald-500"></i> Home</a>
+            <a href="/dashboard" class="block px-3 py-2 rounded-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-emerald-50 dark:hover:bg-slate-800"><i class="fa-solid fa-gauge-high w-6 text-emerald-500"></i> AQI Dashboard</a>
+            <a href="/categories" class="block px-3 py-2 rounded-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-emerald-50 dark:hover:bg-slate-800"><i class="fa-solid fa-layer-group w-6 text-emerald-500"></i> AQI Categories Guide</a>
+            <a href="/safety" class="block px-3 py-2 rounded-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-emerald-50 dark:hover:bg-slate-800"><i class="fa-solid fa-shield-heart w-6 text-emerald-500"></i> Citizen Safety Guide</a>
+            <a href="/map" class="block px-3 py-2 rounded-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-emerald-50 dark:hover:bg-slate-800"><i class="fa-solid fa-map-location-dot w-6 text-emerald-500"></i> Interactive AQI Map</a>
+            <a href="/analytics" class="block px-3 py-2 rounded-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-emerald-50 dark:hover:bg-slate-800"><i class="fa-solid fa-chart-line w-6 text-emerald-500"></i> Pollution Trends & ML</a>
+            <a href="/risk-calculator" class="block px-3 py-2 rounded-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-emerald-50 dark:hover:bg-slate-800"><i class="fa-solid fa-calculator w-6 text-emerald-500"></i> Personal Health Risk Test</a>
+            <a href="/advisories" class="block px-3 py-2 rounded-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-emerald-50 dark:hover:bg-slate-800"><i class="fa-solid fa-file-shield w-6 text-emerald-500"></i> Citizen Emergency Advisory</a>
+            <a href="/about" class="block px-3 py-2 rounded-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-emerald-50 dark:hover:bg-slate-800"><i class="fa-solid fa-graduation-cap w-6 text-emerald-500"></i> BCA Viva / Project Defense</a>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Professional Academic & Public Footer -->
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 mt-20 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800">
+                <!-- Brand & Mission -->
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white text-xl">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div>
+                            <span class="font-display font-bold text-xl text-white">AirGuard System</span>
+                            <p class="text-xs text-emerald-400 font-semibold">“Know Your Air. Protect Your Health.”</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-400 leading-relaxed pr-6">
+                        An intelligent citizen air-safety platform designed to demystify complex atmospheric pollutant concentrations into life-saving health recommendations, powered by CPCB standards and scikit-learn Machine Learning models.
+                    </p>
+                    <div class="flex items-center space-x-3 text-xs text-slate-300">
+                        <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700 font-mono">BCA Data Science Final Year</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700 font-mono">CPCB & WHO Standards</span>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div>
+                    <h3 class="text-white font-semibold text-sm tracking-wider uppercase mb-4">Core Platform</h3>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="/" class="hover:text-emerald-400 transition-colors">Citizen Home</a></li>
+                        <li><a href="/dashboard" class="hover:text-emerald-400 transition-colors">Live Dashboard</a></li>
+                        <li><a href="/categories" class="hover:text-emerald-400 transition-colors">6 AQI Categories</a></li>
+                        <li><a href="/map" class="hover:text-emerald-400 transition-colors">Geospatial AQI Map</a></li>
+                    </ul>
+                </div>
+
+                <!-- Guidance & Tools -->
+                <div>
+                    <h3 class="text-white font-semibold text-sm tracking-wider uppercase mb-4">Safety & ML</h3>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="/safety" class="hover:text-emerald-400 transition-colors">Demographic Safety Guide</a></li>
+                        <li><a href="/risk-calculator" class="hover:text-emerald-400 transition-colors">Health Risk Calculator</a></li>
+                        <li><a href="/analytics" class="hover:text-emerald-400 transition-colors">7-Day Trend & ML Simulator</a></li>
+                        <li><a href="/advisories" class="hover:text-emerald-400 transition-colors">Generate Public Notice</a></li>
+                    </ul>
+                </div>
+
+                <!-- Project & Defense -->
+                <div>
+                    <h3 class="text-white font-semibold text-sm tracking-wider uppercase mb-4">Academic Project</h3>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="/about" class="hover:text-emerald-400 transition-colors">Project Architecture</a></li>
+                        <li><a href="/about#viva" class="hover:text-emerald-400 transition-colors">BCA Viva Defense Q&A</a></li>
+                        <li><a href="/about#cpcb" class="hover:text-emerald-400 transition-colors">CPCB Sub-Index Math</a></li>
+                        <li><a href="/about#dataset" class="hover:text-emerald-400 transition-colors">Data Science Methodology</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Copyright & Disclaimers -->
+            <div class="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+                <p>&copy; 2026 AirGuard Project. Developed for Bachelor of Computer Applications (BCA Data Science) Degree Requirements.</p>
+                <div class="flex items-center space-x-4">
+                    <span>Emergency Air Quality Helpline: <strong class="text-slate-300">112 / NCAP</strong></span>
+                    <span>•</span>
+                    <span class="text-emerald-400 flex items-center gap-1"><i class="fa-solid fa-circle-check text-[10px]"></i> Operational</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Global Scripts -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

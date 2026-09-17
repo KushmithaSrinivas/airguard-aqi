@@ -1,0 +1,27 @@
+{
+  "model_name": "Random Forest Regressor (Ensemble of 100 Trees)",
+  "dataset_size": 5000,
+  "training_samples": 4000,
+  "testing_samples": 1000,
+  "r2_score": 0.9995,
+  "accuracy_percentage": 99.95,
+  "mae": 0.93,
+  "rmse": 3.49,
+  "feature_importances": {
+    "pm25": 91.34,
+    "pm10": 8.46,
+    "no2": 0.06,
+    "so2": 0.0,
+    "co": 0.12,
+    "o3": 0.02
+  },
+  "features": [
+    "pm25",
+    "pm10",
+    "no2",
+    "so2",
+    "co",
+    "o3"
+  ],
+  "training_timestamp": "2026-09-17T21:34:50.520999"
+}

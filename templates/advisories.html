@@ -1,0 +1,190 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Emergency Advisory Generator – AirGuard{% endblock %}
+
+{% block content %}
+<div class="bg-slate-50 dark:bg-slate-950 py-10">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 no-print">
+            <div>
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider mb-2">
+                    <i class="fa-solid fa-file-shield"></i>
+                    <span>Public Notice System</span>
+                </div>
+                <h1 class="text-3xl font-display font-extrabold text-slate-900 dark:text-white">
+                    Emergency Air Quality Advisory Generator
+                </h1>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    Generate printable official health advisories for schools, housing societies, and corporate offices.
+                </p>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <button onclick="window.print()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-print"></i>
+                    <span>Print / Save Notice PDF</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Customizer Controls (Hidden on Print) -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm no-print space-y-4">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400">Configure Notice Details</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Target Organization</label>
+                    <select id="adv-org" onchange="updateAdvisoryPreview()" class="w-full px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold">
+                        <option value="school">School & Educational Institutions</option>
+                        <option value="society" selected>Residential Housing Society (RWA)</option>
+                        <option value="corporate">Workplace & Commercial Facilities</option>
+                        <option value="citizen">General Public Alert</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Monitored City</label>
+                    <input type="text" id="adv-city" value="{{ data.city }}" oninput="updateAdvisoryPreview()" class="w-full px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Current AQI Index</label>
+                    <input type="number" id="adv-aqi" value="{{ data.aqi }}" oninput="updateAdvisoryPreview()" class="w-full px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold font-mono">
+                </div>
+            </div>
+        </div>
+
+        <!-- Printable Advisory Document Card -->
+        <div class="bg-white text-slate-900 rounded-3xl p-8 sm:p-12 border-2 border-slate-300 shadow-xl space-y-6 print-container" id="printable-advisory">
+            
+            <!-- Document Header -->
+            <div class="border-b-2 border-slate-900 pb-6 flex items-start justify-between">
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-lg font-bold">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <span class="font-display font-extrabold text-2xl tracking-tight text-slate-950">AirGuard Citizen Safety Network</span>
+                    </div>
+                    <p class="text-xs text-slate-500 font-semibold tracking-wide uppercase mt-1">
+                        Official Public Air Quality Health Advisory
+                    </p>
+                </div>
+                <div class="text-right text-xs text-slate-600 font-mono">
+                    <p>Ref: AGY/ADV/2026</p>
+                    <p>Issued: <strong id="doc-date">{{ data.timestamp }}</strong></p>
+                </div>
+            </div>
+
+            <!-- Subject & Banner -->
+            <div class="bg-slate-100 p-4 rounded-xl border border-slate-300 flex items-center justify-between">
+                <div>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Monitored Location</span>
+                    <h3 class="text-xl font-bold font-display" id="doc-location">{{ data.city }}, {{ data.state }}</h3>
+                </div>
+                <div class="text-right">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Recorded Air Quality</span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-3xl font-extrabold font-display text-red-600" id="doc-aqi">{{ data.aqi }}</span>
+                        <span class="px-2.5 py-1 rounded bg-red-100 text-red-800 text-xs font-extrabold uppercase" id="doc-category">{{ data.category.level }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notice Body -->
+            <div class="space-y-4 text-xs sm:text-sm text-slate-800 leading-relaxed">
+                <p>
+                    <strong>ATTENTION: ALL RESIDENTS, STUDENTS & CITIZENS</strong>
+                </p>
+                <p id="doc-intro">
+                    In light of the prevailing atmospheric meteorological conditions, the ambient Air Quality Index (AQI) has reached <span class="font-bold text-red-600" id="doc-inline-aqi">{{ data.aqi }}</span> (<span class="font-bold" id="doc-inline-cat">{{ data.category.level }}</span>). Prolonged exposure poses documented respiratory and cardiovascular health risks. All stakeholders are strongly advised to adhere to the mandatory precautions below:
+                </p>
+
+                <!-- Mandatory Protocols List -->
+                <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                    <h4 class="font-bold text-slate-900 uppercase tracking-wide text-xs flex items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-600"></i>
+                        Prescribed Citizen Protection Protocols
+                    </h4>
+                    <ul class="space-y-2 text-xs list-disc pl-5" id="doc-protocols">
+                        <li><strong>Outdoor Activities:</strong> Suspend all non-essential outdoor physical training, morning assemblies, and jogging until index drops below 100.</li>
+                        <li><strong>Respiratory Protection:</strong> Mandatory use of certified N95 or N99 particulate respirators for all outdoor transit.</li>
+                        <li><strong>Indoor Ventilation:</strong> Keep all external doors and windows firmly shut. Utilize indoor HEPA air filtration where available.</li>
+                        <li><strong>Zero Combustion Policy:</strong> Strict prohibition against burning leaves, garbage, or solid fuels within premises.</li>
+                        <li><strong>Medical Preparedness:</strong> Asthmatic patients and senior citizens must keep rescue inhalers accessible at all times.</li>
+                    </ul>
+                </div>
+
+                <p class="text-slate-600 text-xs italic">
+                    This advisory is issued under standard CPCB Environmental Health guidelines and remains in effect until further atmospheric dispersion updates.
+                </p>
+            </div>
+
+            <!-- Signature & Validation Footer -->
+            <div class="pt-8 border-t border-slate-300 flex items-end justify-between text-xs text-slate-600">
+                <div>
+                    <p class="font-bold text-slate-900">AirGuard Public Health Directorate</p>
+                    <p>Environmental Data Science & Citizen Awareness Cell</p>
+                    <p class="text-[10px] text-slate-400 mt-1">Verified against Central Pollution Control Board (CPCB) Thresholds</p>
+                </div>
+                <div class="text-right">
+                    <div class="inline-block border-b-2 border-slate-800 w-36 mb-1"></div>
+                    <p class="font-bold text-slate-900">Authorized Signature</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function updateAdvisoryPreview() {
+        const city = document.getElementById('adv-city').value || 'Delhi';
+        const aqi = parseInt(document.getElementById('adv-aqi').value) || 150;
+        const org = document.getElementById('adv-org').value;
+
+        document.getElementById('doc-location').innerText = city;
+        document.getElementById('doc-aqi').innerText = aqi;
+        document.getElementById('doc-inline-aqi').innerText = aqi;
+
+        let level = 'Moderate';
+        let colorClass = 'text-amber-600';
+        if (aqi <= 50) { level = 'Good'; colorClass = 'text-emerald-600'; }
+        else if (aqi <= 100) { level = 'Satisfactory'; colorClass = 'text-lime-600'; }
+        else if (aqi <= 200) { level = 'Moderate'; colorClass = 'text-amber-600'; }
+        else if (aqi <= 300) { level = 'Poor'; colorClass = 'text-orange-600'; }
+        else if (aqi <= 400) { level = 'Very Poor'; colorClass = 'text-red-600'; }
+        else { level = 'Severe'; colorClass = 'text-red-900'; }
+
+        document.getElementById('doc-category').innerText = level;
+        document.getElementById('doc-inline-cat').innerText = level;
+
+        const protocolsList = document.getElementById('doc-protocols');
+        if (org === 'school') {
+            protocolsList.innerHTML = `
+                <li><strong>Suspension of Outdoor Sports:</strong> All physical education classes, sports practices, and morning school assemblies are suspended immediately.</li>
+                <li><strong>Classroom Air Quality:</strong> Keep classroom doors and windows closed. Turn on air purifiers where installed.</li>
+                <li><strong>Transport Safety:</strong> School bus drivers must keep bus windows rolled up during transit through high-traffic bottlenecks.</li>
+                <li><strong>Student Care:</strong> Parents of children with asthma must inform the school infirmary and provide emergency inhalers.</li>
+            `;
+        } else if (org === 'corporate') {
+            protocolsList.innerHTML = `
+                <li><strong>Work-from-Home Option:</strong> High-risk personnel, pregnant employees, and seniors are encouraged to work remotely during high smog alerts.</li>
+                <li><strong>HVAC Filtration:</strong> Facility managers must verify that central HVAC air filters are operating with high-efficiency particulate media.</li>
+                <li><strong>Field Staff Shifts:</strong> Outdoor security guards and delivery personnel must be provided with N95 masks and hydration breaks.</li>
+            `;
+        } else {
+            protocolsList.innerHTML = `
+                <li><strong>Outdoor Activities:</strong> Suspend all non-essential outdoor physical training, morning assemblies, and jogging until index drops below 100.</li>
+                <li><strong>Respiratory Protection:</strong> Mandatory use of certified N95 or N99 particulate respirators for all outdoor transit.</li>
+                <li><strong>Indoor Ventilation:</strong> Keep all external doors and windows firmly shut. Utilize indoor HEPA air filtration where available.</li>
+                <li><strong>Zero Combustion Policy:</strong> Strict prohibition against burning leaves, garbage, or solid fuels within premises.</li>
+            `;
+        }
+    }
+</script>
+{% endblock %}

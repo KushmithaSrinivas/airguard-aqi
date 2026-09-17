@@ -1,0 +1,290 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Citizen Safety Guide – AirGuard System{% endblock %}
+
+{% block content %}
+<div class="bg-slate-50 dark:bg-slate-950 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+        
+        <!-- Header Banner -->
+        <div class="text-center max-w-3xl mx-auto space-y-3">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider">
+                <i class="fa-solid fa-shield-heart"></i>
+                <span>Actionable Protection Protocols</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-slate-900 dark:text-white">
+                Citizen Air Safety & Protection Guide
+            </h1>
+            <p class="text-base text-slate-600 dark:text-slate-400">
+                Tailored health guidelines for every member of your family. Learn how to minimize toxic particulate inhalation indoors and outdoors.
+            </p>
+        </div>
+
+        <!-- Demographic Guidance Tabs / Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- 1. General Public -->
+            <div class="bg-white dark:bg-slate-900 rounded-3xl p-7 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-900 dark:text-white mb-2">General Public</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Everyday safety habits for commuters and working adults.</p>
+
+                    <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-300">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5 flex-shrink-0"></i>
+                            <span><strong>Avoid Rush-Hour Commutes:</strong> Traffic intersections contain 3x higher concentrations of ultrafine exhaust soot. Keep car windows rolled up.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5 flex-shrink-0"></i>
+                            <span><strong>Smart Home Ventilation:</strong> Open windows only between 12:00 PM and 4:00 PM when sunlight warms the ground and dilutes smog.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5 flex-shrink-0"></i>
+                            <span><strong>Hydration & Diet:</strong> Drink plenty of warm water, jaggery (gur), and vitamin-C rich citrus fruits to soothe inflamed throat airways.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 2. Children & Parents -->
+            <div class="bg-white dark:bg-slate-900 rounded-3xl p-7 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 rounded-2xl bg-teal-100 dark:bg-teal-950 text-teal-600 dark:text-teal-400 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-child"></i>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-900 dark:text-white mb-2">Children & Parents</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Children breathe 50% more air per kg of body weight than adults.</p>
+
+                    <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-300">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-teal-500 mt-0.5 flex-shrink-0"></i>
+                            <span><strong>Suspend Morning Sports:</strong> Cancel outdoor school assemblies and physical training when AQI exceeds 200. Early mornings have toxic temperature inversions.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-teal-500 mt-0.5 flex-shrink-0"></i>
+                            <span><strong>Fitted Pediatric Masks:</strong> Standard adult masks leave loose cheek gaps. Provide kids with certified pediatric N95 masks for bus transit.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-teal-500 mt-0.5 flex-shrink-0"></i>
+                            <span><strong>Indoor Play Activities:</strong> Replace outdoor park play with indoor puzzles, reading, and gymnastics during high pollution alerts.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 3. Elderly People -->
+            <div class="bg-white dark:bg-slate-900 rounded-3xl p-7 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 rounded-2xl bg-cyan-100 dark:bg-cyan-950 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-person-cane"></i>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-900 dark:text-white mb-2">Elderly Seniors</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">PM2.5 particles enter the bloodstream, elevating heart attack risks.</p>
+
+                    <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-300">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-cyan-500 mt-0.5 flex-shrink-0"></i>
+                            <span><strong>No Early Morning Walks:</strong> Postpone daily walks until after 10:00 AM when the sun breaks cold ground-level smog layers.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-cyan-500 mt-0.5 flex-shrink-0"></i>
+                            <span><strong>Monitor Blood Pressure:</strong> Air pollution triggers vascular constriction. Check blood pressure regularly during winter smog spikes.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-cyan-500 mt-0.5 flex-shrink-0"></i>
+                            <span><strong>Medication Adherence:</strong> Keep prescribed cardiovascular and respiratory tablets stocked for at least 15 days.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 4. Outdoor Workers & Athletes -->
+            <div class="bg-white dark:bg-slate-900 rounded-3xl p-7 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-person-digging"></i>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-900 dark:text-white mb-2">Outdoor Workers & Athletes</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Delivery riders, traffic police, construction staff, and runners.</p>
+
+                    <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-300">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-amber-500 mt-0.5 flex-shrink-0"></i>
+                            <span><strong>Mandatory N95 with Exhalation Valve:</strong> Heavy exertion increases ventilation 5x. An exhalation valve reduces moisture buildup.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-amber-500 mt-0.5 flex-shrink-0"></i>
+                            <span><strong>Shift Rotations:</strong> Employers must rotate staff between high-traffic roadside duty and shaded/indoor staging stations.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-amber-500 mt-0.5 flex-shrink-0"></i>
+                            <span><strong>Frequent Eye Washing:</strong> Rinse eyes with clean sterile water after outdoor delivery shifts to remove corrosive acidic particulate dust.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 5. Sensitive Respiratory Groups -->
+            <div class="bg-white dark:bg-slate-900 rounded-3xl p-7 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 rounded-2xl bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-400 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-lungs"></i>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-900 dark:text-white mb-2">Asthma & COPD Patients</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Vulnerable individuals with chronic lung ailments or allergies.</p>
+
+                    <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-300">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-red-500 mt-0.5 flex-shrink-0"></i>
+                            <span><strong>Inhaler Readiness:</strong> Keep rapid-relief bronchodilator inhalers (e.g. Salbutamol) in your pocket whenever traveling.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-red-500 mt-0.5 flex-shrink-0"></i>
+                            <span><strong>Steam Inhalation:</strong> Inhale pure saline steam for 5 minutes before bedtime to clear sticky mucus and particulates from bronchioles.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-red-500 mt-0.5 flex-shrink-0"></i>
+                            <span><strong>Red Flag Symptoms:</strong> Immediate medical consultation if you experience persistent wheezing, chest tightness, or blue lips.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 6. Authorities & Housing Societies -->
+            <div class="bg-white dark:bg-slate-900 rounded-3xl p-7 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 rounded-2xl bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-building-shield"></i>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-900 dark:text-white mb-2">Housing Societies & Schools</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Community-level mitigation and institutional precautions.</p>
+
+                    <ul class="space-y-3 text-xs text-slate-700 dark:text-slate-300">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-blue-500 mt-0.5 flex-shrink-0"></i>
+                            <span><strong>Zero Waste Burning:</strong> Strictly prohibit the incineration of dry leaves, plastics, or garbage in residential colonies.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-blue-500 mt-0.5 flex-shrink-0"></i>
+                            <span><strong>Road Water Sprinkling:</strong> Spray water on unpaved internal society pathways to prevent fugitive dust resuspension.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-blue-500 mt-0.5 flex-shrink-0"></i>
+                            <span><strong>Issue Emergency Notices:</strong> Use our <a href="/advisories" class="text-blue-600 dark:text-blue-400 underline font-bold">Advisory Generator</a> to broadcast printable society alerts.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Comprehensive Mask Selection Guide Table -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div class="max-w-3xl mb-6">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Personal Protective Equipment</span>
+                <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white mt-1">Mask Selection & Efficacy Guide</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Not all masks filter microscopic PM2.5 pollution. Here is how standard mask types compare against toxic smog particles.</p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs sm:text-sm border-collapse">
+                    <thead>
+                        <tr class="border-b border-slate-200 dark:border-slate-700 text-slate-400 text-[11px] uppercase tracking-wider">
+                            <th class="py-3 px-4">Mask Type</th>
+                            <th class="py-3 px-4">PM2.5 Filtration</th>
+                            <th class="py-3 px-4">Facial Seal Fit</th>
+                            <th class="py-3 px-4">Ideal AQI Scenario</th>
+                            <th class="py-3 px-4">Lifespan & Care</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                            <td class="py-4 px-4 font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> N95 / FFP2 Respirator
+                            </td>
+                            <td class="py-4 px-4"><span class="font-bold text-emerald-600 dark:text-emerald-400">95% Effective</span></td>
+                            <td class="py-4 px-4 text-slate-600 dark:text-slate-300">Airtight with nose-clip</td>
+                            <td class="py-4 px-4 font-medium text-slate-800 dark:text-slate-200">AQI > 200 (Poor to Severe)</td>
+                            <td class="py-4 px-4 text-slate-500 dark:text-slate-400">Reusable up to 40 hours if dry</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                            <td class="py-4 px-4 font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-teal-500"></span> N99 / FFP3 Respirator
+                            </td>
+                            <td class="py-4 px-4"><span class="font-bold text-emerald-600 dark:text-emerald-400">99% Effective</span></td>
+                            <td class="py-4 px-4 text-slate-600 dark:text-slate-300">Very tight dual-strap</td>
+                            <td class="py-4 px-4 font-medium text-slate-800 dark:text-slate-200">AQI > 350 (Severe Smog)</td>
+                            <td class="py-4 px-4 text-slate-500 dark:text-slate-400">Replace when breathing is difficult</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                            <td class="py-4 px-4 font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> 3-Ply Surgical Mask
+                            </td>
+                            <td class="py-4 px-4"><span class="font-bold text-amber-600 dark:text-amber-400">30% - 40% Effective</span></td>
+                            <td class="py-4 px-4 text-slate-600 dark:text-slate-300">Loose sides (air leaks)</td>
+                            <td class="py-4 px-4 font-medium text-slate-800 dark:text-slate-200">AQI < 150 (Dust only)</td>
+                            <td class="py-4 px-4 text-slate-500 dark:text-slate-400">Single-use only (discard daily)</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                            <td class="py-4 px-4 font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> Cloth Mask / Handkerchief
+                            </td>
+                            <td class="py-4 px-4"><span class="font-bold text-red-500">< 15% Effective</span></td>
+                            <td class="py-4 px-4 text-slate-600 dark:text-slate-300">No seal (PM2.5 passes)</td>
+                            <td class="py-4 px-4 font-medium text-slate-800 dark:text-slate-200">Not recommended for smog</td>
+                            <td class="py-4 px-4 text-slate-500 dark:text-slate-400">Wash daily; blocks only large sand</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Indoor Air Quality (IAQ) Toolkit: Air Plants & Purifiers -->
+        <div class="bg-gradient-to-br from-emerald-900 via-teal-900 to-slate-900 text-white rounded-3xl p-8 sm:p-10 shadow-xl relative overflow-hidden">
+            <div class="max-w-3xl relative z-10 space-y-3 mb-8">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-300">Indoor Air Sanctuary</span>
+                <h3 class="text-2xl sm:text-3xl font-display font-bold">Natural Plants & Indoor Air Purification</h3>
+                <p class="text-sm text-slate-300">According to the NASA Clean Air Study, specific indoor houseplants naturally absorb toxic benzene, formaldehyde, and carbon monoxide from living spaces.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+                <div class="bg-white/10 rounded-2xl p-5 border border-white/10 backdrop-blur-sm space-y-2">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/30 text-emerald-300 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <h4 class="font-bold text-white text-base">Snake Plant (Sansevieria)</h4>
+                    <p class="text-xs text-slate-300">Releases oxygen at night! Ideal for bedrooms to absorb toluene, xylene, and formaldehyde.</p>
+                </div>
+
+                <div class="bg-white/10 rounded-2xl p-5 border border-white/10 backdrop-blur-sm space-y-2">
+                    <div class="w-10 h-10 rounded-xl bg-teal-500/30 text-teal-300 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <h4 class="font-bold text-white text-base">Spider Plant</h4>
+                    <p class="text-xs text-slate-300">Extremely resilient plant that actively captures carbon monoxide and household smoke fumes.</p>
+                </div>
+
+                <div class="bg-white/10 rounded-2xl p-5 border border-white/10 backdrop-blur-sm space-y-2">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-500/30 text-cyan-300 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-spa"></i>
+                    </div>
+                    <h4 class="font-bold text-white text-base">Areca Palm</h4>
+                    <p class="text-xs text-slate-300">Acts as a natural room humidifier while filtering out chemical solvents from paints and cleaning sprays.</p>
+                </div>
+
+                <div class="bg-white/10 rounded-2xl p-5 border border-white/10 backdrop-blur-sm space-y-2">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-400/30 text-emerald-200 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-fan"></i>
+                    </div>
+                    <h4 class="font-bold text-white text-base">True HEPA Air Purifier</h4>
+                    <p class="text-xs text-slate-300">Mechanical H13 HEPA filters remove 99.97% of PM2.5 particulates. Place 3 feet away from walls.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

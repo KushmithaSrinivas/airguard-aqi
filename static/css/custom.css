@@ -1,0 +1,74 @@
+﻿/* AirGuard Custom Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, .font-display {
+    font-family: 'Outfit', sans-serif;
+}
+
+/* Glassmorphism cards */
+.glass-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+.dark .glass-card {
+    background: rgba(15, 23, 42, 0.85);
+}
+
+/* AQI Meter Gauge */
+.aqi-gauge-circle {
+    stroke-dasharray: 283;
+    stroke-dashoffset: 70;
+    transition: stroke-dashoffset 1s ease-out;
+}
+
+/* Pulse animation */
+@keyframes pulse-gentle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.85; transform: scale(1.02); }
+}
+.animate-pulse-gentle {
+    animation: pulse-gentle 3s infinite ease-in-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+.dark ::-webkit-scrollbar-track {
+    background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+.dark ::-webkit-scrollbar-thumb {
+    background: #334155;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Print Styles for Advisories */
+@media print {
+    header, footer, nav, .no-print, button, #theme-toggle {
+        display: none !important;
+    }
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    .print-container {
+        border: 2px solid #000 !important;
+        padding: 24px !important;
+        box-shadow: none !important;
+    }
+}
